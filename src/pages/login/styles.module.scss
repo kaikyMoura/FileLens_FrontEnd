@@ -1,0 +1,31 @@
+.container {
+    width: 100% !important;
+    height: 100% !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+
+    & p {
+        color: #fff;
+    }
+}
+
+.card {
+    scale: calc(0.9);
+    background-color: var(--component-color);
+    padding: 26px;
+    width: 30em;
+    border-radius: 10px;
+
+    &.icon svg {
+        padding: 6px;
+        border-radius: 10px;
+        background-color: #2699ef;
+
+    }
+
+    & .icon h3 {
+        color: #fff;
+    }
+
+}

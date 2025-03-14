@@ -1,0 +1,27 @@
+.container {
+    button {
+        color: var(--text-color);
+    }
+}
+
+.card {
+    justify-self: center;
+    align-self: center;
+    scale: calc(0.9);
+    background-color: #2e2e2e;
+    padding: 26px;
+    width: 30em;
+    border-radius: 10px;
+
+    & .icon svg {
+        padding: 6px;
+        border-radius: 10px;
+        background-color: #2699ef;
+
+    }
+
+    & .icon h3 {
+        color: #fff;
+    }
+
+}

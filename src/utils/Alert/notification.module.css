@@ -1,0 +1,39 @@
+.modalBlur {
+    position: fixed;
+    box-shadow: inset;
+    backdrop-filter: blur(5px);
+    height: 10em;
+    position: absolute;
+    width: 28em;
+
+    border: 2px solid;
+    border-radius: 6px;
+    top: 25%;
+    left: 35%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalBlur div {
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.modalBlur h2 {
+    position: absolute;
+    top: 0.5em;
+}
+
+.modalBlur p {
+    position: relative;
+    color: black;
+}
+
+.modalBlur button {
+    position: absolute;
+    top: 0.5em;
+    margin-left: 90%;
+}

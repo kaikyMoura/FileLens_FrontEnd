@@ -1,0 +1,44 @@
+.cardContainer {
+    width: 100%;
+}
+
+.cardContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+@media (min-width: 0px) and (max-width: 768px) {
+    .cardContainer {
+        padding: 20px;
+    }
+    .arrows {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cardContainer {
+        padding: 15px;
+        width: 40%;
+    }
+}
+
+@media (min-width: 1025px) {
+    .cardContainer {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+.cardContainer h2 {
+    text-align: center;
+}
+
+.arrows {
+    position: relative;
+    border-radius: 90%;
+    background-color: white;
+}

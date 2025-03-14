@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ededed;
+  --text-color: #161616;
+  --component-color: #ededed;
+  --sidebar-width: 80px;
+}
+
+[data-theme="dark"] {
+  --background: #121212;
+  --text-color: #ededed;
+  --component-color: #2e2e2e;
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+  margin: 0;
+  color: var(--text-color);
+  background: var(--background);
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  font-family: 'Poppins', sans-serif;
+}
