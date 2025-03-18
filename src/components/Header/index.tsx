@@ -1,39 +1,55 @@
-import { useEffect, useState } from 'react'
-import { FaFolderOpen } from 'react-icons/fa6'
-import styles from './styles.module.scss'
+import { useEffect } from 'react';
+import { FaFolderOpen } from 'react-icons/fa6';
+import styles from './styles.module.scss';
+import Link from 'next/link';
+import { usePageContext } from '@/contexts/PageContextProvider';
+
+const pages = [{ name: 'Home', link: '/' }, { name: 'Upload', link: '/upload' }, { name: 'My files', link: '/files' }];
 
 const Header = () => {
-    const [date, setDate] = useState('')
+    const { currentPage, setCurrentPage, setPageTitle } = usePageContext();
 
     useEffect(() => {
-        const currentDate = new Date()
+    }, [])
 
-        const formattedDate = new Intl.DateTimeFormat('en-US', {
-            weekday: 'long',
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-        }).format(currentDate);
-
-        const finalDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-        setDate(finalDate)
-    }, [date])
+    const handlePageChange = (index: number, name: string) => {
+        setCurrentPage(index)
+        setPageTitle(name)
+    }
 
     return (
         <>
             <div className={styles.headerContainer}>
                 <div className={styles.header}>
-
-                    <div className='lg:flex justify-between mb-4 items-center'>
+                    <div className='ml-4 mt-3 flex justify-between mr-4'>
                         <div className='flex items-center gap-2'>
-                            <FaFolderOpen className='' color="#fff" fontSize={22} />
+                            <FaFolderOpen className='' color="gold" fontSize={22} />
                             <h2 className='font-bold text-2xl'>File lens</h2>
                         </div>
-                        <div className=''>
+                        <div className='m-1'>
                             <h2 className='font-medium text-xl lg:ml-24'>Welcome back, Marcus</h2>
                         </div>
-                        <div>
-                            <p>{date}</p>
+                        <div className='mt-1'>
+                            <ul className='flex gap-8 mr-20'>
+                                {pages.map((page, index) => (
+
+                                    <li key={index} style={{
+                                        borderBottom: currentPage === index ? '2px solid gold' : 'none',
+                                    }}>
+                                        <Link href={page.link}>
+                                            <p className='font-medium text-base'
+                                                onClick={() => handlePageChange(index, page.name)}
+                                                style={{
+                                                    color: 'white',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
+                                                {page.name}
+                                            </p>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </div>

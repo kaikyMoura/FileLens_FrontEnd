@@ -4,7 +4,7 @@ import React, { createContext, ReactNode, useEffect, useState } from "react";
 type Theme = "dark" | "light"
 
 
-interface ThemeContextProps {
+type ThemeContextProps = {
     theme: Theme;
     toggleTheme: () => void;
 }

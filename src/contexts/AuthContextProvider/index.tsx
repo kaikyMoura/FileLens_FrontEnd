@@ -4,14 +4,14 @@ import { useLoadingContext } from '../LoadingContextProvider';
 import { useRouter } from 'next/router';
 import DashBoard from '@/components/Dashboard';
 
-interface AuthContextProps {
+type AuthContextProps = {
     isAuthenticated: boolean | null;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
 const AppContext = createContext<AuthContextProps | undefined>(undefined)
 
-const publicPages = ['/login', '/registration', '/getStarted', '/verifyAccount', '/accountVerify', '/resetPassword', '/changePassword']
+// const publicPages = ['/login', '/registration', '/getStarted', '/verifyAccount', '/accountVerify', '/resetPassword', '/changePassword']
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -57,13 +57,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     return (
         <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
-            {isAuthenticated ? (
+            {/* {isAuthenticated ? ( */}
                 <DashBoard>
                     {children}
                 </DashBoard>
-            ) : (
-                <main>{children}</main>
-            )}
+            {/* ) : (
+                 <main>{children}</main>
+             )} */}
         </AppContext.Provider>
     );
 };

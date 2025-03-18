@@ -1,7 +1,7 @@
 import Loader from "@/utils/Loader";
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 
-interface LoadingContextProps {
+type LoadingContextProps = {
     isLoading: boolean | false,
     setLoading: Dispatch<SetStateAction<boolean>>
 }

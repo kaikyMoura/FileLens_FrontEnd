@@ -5,7 +5,7 @@ const DashBoard = (props: {
 }) => {
 
 return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen min-w-screen">
         <Header />
         <main className="">
             {props.children}
