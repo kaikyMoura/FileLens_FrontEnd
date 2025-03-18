@@ -19,38 +19,36 @@ const Header = () => {
 
     return (
         <>
-            <div className={styles.headerContainer}>
-                <div className={styles.header}>
-                    <div className='ml-4 mt-3 flex justify-between mr-4'>
-                        <div className='flex items-center gap-2'>
-                            <FaFolderOpen className='' color="gold" fontSize={22} />
-                            <h2 className='font-bold text-2xl'>File lens</h2>
-                        </div>
-                        <div className='m-1'>
-                            <h2 className='font-medium text-xl lg:ml-24'>Welcome back, Marcus</h2>
-                        </div>
-                        <div className='mt-1'>
-                            <ul className='flex gap-8 mr-20'>
-                                {pages.map((page, index) => (
+            <div className={styles.header}>
+                <div className='ml-4 mt-3 flex justify-between mr-4'>
+                    <div className='flex items-center gap-2'>
+                        <FaFolderOpen className='' color="gold" fontSize={22} />
+                        <h2 className='font-bold text-2xl'>File lens</h2>
+                    </div>
+                    <div className='m-1'>
+                        <h2 className='font-medium text-xl lg:ml-24'>Welcome back, Marcus</h2>
+                    </div>
+                    <div className='mt-1'>
+                        <ul className='flex gap-8 mr-20'>
+                            {pages.map((page, index) => (
 
-                                    <li key={index} style={{
-                                        borderBottom: currentPage === index ? '2px solid gold' : 'none',
-                                    }}>
-                                        <Link href={page.link}>
-                                            <p className='font-medium text-base'
-                                                onClick={() => handlePageChange(index, page.name)}
-                                                style={{
-                                                    color: 'white',
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                {page.name}
-                                            </p>
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                                <li key={index} style={{
+                                    borderBottom: currentPage === index ? '2px solid gold' : 'none',
+                                }}>
+                                    <Link href={page.link}>
+                                        <p className='font-medium text-base'
+                                            onClick={() => handlePageChange(index, page.name)}
+                                            style={{
+                                                color: 'white',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            {page.name}
+                                        </p>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>

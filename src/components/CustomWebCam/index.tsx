@@ -1,50 +1,68 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, MouseEventHandler } from "react";
 import styles from "./styles.module.scss"
 import Webcam from "react-webcam";
 import Button from "../Button";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FaX } from "react-icons/fa6";
+import Card from "../Card";
 
-const CustomWebcam = ({ close }) => {
-    const webcamRef = useRef(null);
-    const [imgSrc, setImgSrc] = useState(null);
+const CustomWebcam = (props: {
+    close?: MouseEventHandler<any>,
+    isCameraOpen?: boolean,
+    handleCapturedPhoto?: (image: string | null) => void
+}) => {
+    const webcamRef = useRef<Webcam>(null);
+    const [imgSrc, setImgSrc] = useState<string | null>('');
 
-    const retake = () => {
+    const retake = (): any => {
         setImgSrc(null);
     }
 
-    const capture = useCallback(() => {
-        const imageSrc = webcamRef.current.getEcreenshot();
-        setImgSrc(imageSrc)
+    const save = (): any => {
+        props.handleCapturedPhoto!(imgSrc)
+    }
+
+    const capture: any = useCallback(() => {
+        if (webcamRef.current) {
+            const imageSrc = webcamRef.current.getScreenshot();
+            setImgSrc(imageSrc)
+        }
     }, [webcamRef])
 
     return (
         <>
-            <div className={`${styles.container}`}>
-                <FontAwesomeIcon className="flex left-[80%]" icon={faX} fontSize={20} onClick={close} />
-                {imgSrc ? (
-                    <Image src={imgSrc} alt="webcam" />
-                )
-                    :
-                    (
-                        <Webcam className="" height={600} width={600} ref={webcamRef} videoConstraints={{
-                            facingMode: 'user'
-                        }} />
+            {props.isCameraOpen && (
+                <div className={`${styles.container}`}>
+                    <FaX className="flex absolute z-50 cursor-pointer mt-4 ml-4" color="black" fontSize={20} onClick={props.close} />
+                    {imgSrc ? (
+                        <>
+                            <Image src={imgSrc} alt="webcam" height={600} width={600} />
+                        </>
                     )
-                }
-                <div>
-                    {imgSrc ?
-                        (
-                            <Button type={"secondary"} text={"Retake photo"} action={retake} />
-                        )
                         :
                         (
-                            <Button type={"primary"} text={"Capture photo"} action={capture} />
+                            <Webcam className="" width={600} ref={webcamRef} audio={false}
+                                screenshotFormat="image/jpeg" videoConstraints={{
+                                    facingMode: 'environment'
+                                }} />
                         )
                     }
+                    <div className="flex justify-center mt-10">
+                        {imgSrc ?
+                            (
+                                <div className="flex flex-col gap-6">
+                                    <Button type={"secondary"} width={200} height={50} text={"Retake photo"} action={retake} />
+                                    <Button type={"primary"} width={200} height={50} text={"Save photo"} action={save} />
+                                </div>
+                            )
+                            :
+                            (
+                                <Button className="" type={"primary"} width={200} height={50} text={"Capture photo"} action={capture} />
+                            )
+                        }
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     )
 }
