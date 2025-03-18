@@ -34,26 +34,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         };
     }, [handleRouteChange, handleRouteComplete, router.events]);
 
-    const handleAuthentication = useCallback(async () => {
-        setLoading(true);
+    // const handleAuthentication = useCallback(async () => {
+    //     setLoading(true);
 
-        if (!token) {
-            if (!publicPages.includes(router.pathname)) {
-                setIsAuthenticated(false);
-                router.replace("/login");
-            } else {
-                setIsAuthenticated(false);
-            }
-        } else {
-            setIsAuthenticated(true);
-        }
+    //     if (!token) {
+    //         if (!publicPages.includes(router.pathname)) {
+    //             setIsAuthenticated(false);
+    //             router.replace("/login");
+    //         } else {
+    //             setIsAuthenticated(false);
+    //         }
+    //     } else {
+    //         setIsAuthenticated(true);
+    //     }
 
-        setLoading(false);
-    }, [token, router.pathname, setLoading]);
+    //     setLoading(false);
+    // }, [token, router.pathname, setLoading]);
 
-    useEffect(() => {
-        handleAuthentication();
-    }, [token, router.pathname, handleAuthentication]);
+    // useEffect(() => {
+    //     handleAuthentication();
+    // }, [token, router.pathname, handleAuthentication]);
 
     return (
         <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

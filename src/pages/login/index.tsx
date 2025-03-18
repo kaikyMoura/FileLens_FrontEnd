@@ -43,7 +43,7 @@ const Login = () => {
                         <u className="font-medium cursor-pointer ml-2">click here</u>
                     </div>
                     <div className="mt-4 flex">
-                        <p className="font-medium">First account ?</p>
+                        <p className="font-medium">First access ?</p>
                         <Link className="font-medium cursor-pointer ml-2" href={"/registration"}><ul>click here</ul></Link>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import styles from "./styles.module.scss"
 import { useThemeContext } from "@/contexts/ThemeContextProvider"
 import { useEffect } from "react"
 import Card from "@/components/Card"
+import FileSelector from "@/components/FileSelector"
 
 const Home = () => {
     const { setLoading } = useLoadingContext()
@@ -12,15 +13,11 @@ const Home = () => {
     useEffect(() => { }, [theme, toggleTheme])
 
     return (<>
-        {/* <div className={`flex gap-6 ${styles.container}`}>
+        <div className={styles.container}>
             <Card className={styles.card} pages={1}>
-                <div></div>
-                <div></div>
+                <FileSelector />
             </Card>
-            <button onClick={() => Cookies.remove('Token')}>Sair</button>
-            <button onClick={() => setLoading(true)}>carregar</button>
-            <button onClick={toggleTheme}>{theme === 'dark' ? "🌙 Modo Escuro" : "☀️ Modo Claro"} </button>
-        </div> */}
+        </div>
     </>)
 }
 
