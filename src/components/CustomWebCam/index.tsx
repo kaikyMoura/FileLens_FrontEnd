@@ -1,10 +1,9 @@
-import { useRef, useState, useCallback, MouseEventHandler } from "react";
-import styles from "./styles.module.scss"
+import Image from "next/image";
+import { MouseEventHandler, useCallback, useRef, useState } from "react";
+import { FaX } from "react-icons/fa6";
 import Webcam from "react-webcam";
 import Button from "../Button";
-import Image from "next/image";
-import { FaX } from "react-icons/fa6";
-import Card from "../Card";
+import styles from "./styles.module.scss";
 
 const CustomWebcam = (props: {
     close?: MouseEventHandler<any>,
@@ -19,7 +18,7 @@ const CustomWebcam = (props: {
     }
 
     const save = (): any => {
-        props.handleCapturedPhoto!(imgSrc)
+        props.handleCapturedPhoto!(imgSrc);
     }
 
     const capture: any = useCallback(() => {

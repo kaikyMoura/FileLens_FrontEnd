@@ -4,6 +4,7 @@
     background-color: var(--component-color);
     color: var(--text-color);
     position: fixed;
+    z-index: 150;
 }
 
 @media (max-width) {
