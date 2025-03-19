@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { FaFolderOpen, FaX } from "react-icons/fa6";
 import styles from "./styles.module.scss";
-import { signup } from '@/api/services/userService';
+import { signup } from "@/api/services/userService";
 
 const Signup = () => {
     const router = useRouter()

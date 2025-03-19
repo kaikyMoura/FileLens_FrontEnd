@@ -7,6 +7,8 @@ import { SetStateAction, useState } from "react"
 import { FaFile } from "react-icons/fa6"
 import styles from "./styles.module.scss"
 import Link from "next/link"
+import { login } from "@/api/services/userService"
+import { User } from "@/model/User"
 
 const Login = () => {
     const router = useRouter()
@@ -17,8 +19,25 @@ const Login = () => {
     const [userPassword, setUserPassword] = useState('')
 
     const doLogin = async () => {
-        router.replace("/dashboard")
+        const user: User = {
+            email: email,
+            user_password: userPassword,
+        }
+
+        setLoading(true)
+
+        if (user) {
+            const response = await login(user)
+            if (response.success === true) {
+                setLoading(false)
+                router.replace("/")
+            }
+            else {
+                setLoading(false)
+            }
+        }
     }
+
     return (
         <div className={styles.container}>
             <Card className="h-[100vh] flex justify-center items-center" pages={1}>

@@ -10,7 +10,7 @@ const Header = () => {
     const { currentPage, setCurrentPage, setPageTitle } = usePageContext();
 
     useEffect(() => {
-    }, [])
+    }, [currentPage])
 
     const handlePageChange = (index: number, name: string) => {
         setCurrentPage(index)
@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <>
             <div className={styles.header}>
-                <div className='ml-4 mt-3 flex justify-between mr-4'>
+                <div className='ml-4 mt-3 flex justify-between gap-4'>
                     <div className='flex items-center gap-2'>
                         <FaFolderOpen className='' color="gold" fontSize={22} />
                         <h2 className='font-bold text-2xl'>File lens</h2>

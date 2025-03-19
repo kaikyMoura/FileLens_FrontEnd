@@ -1,4 +1,4 @@
-import Loader from "@/utils/Loader";
+import Loader from "@/components/Loader";
 import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 
 type LoadingContextProps = {
