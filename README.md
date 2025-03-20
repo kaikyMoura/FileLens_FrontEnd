@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h2 align="center">Expense Manager API - Backend</h2>
+<p align="center"><i>Repository for the Expense Manager backend API</i></p>
 
-## Getting Started
+<div align="center">
+  
+![GitHub top language](https://img.shields.io/github/languages/top/kaikyMoura/FileLens_FrontEnd)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ce1f958181d743b98107dbc70dfac5ed)](https://app.codacy.com/gh/kaikyMoura/FileLens_FrontEnd/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+![Repository size](https://img.shields.io/github/repo-size/kaikyMoura/FileLens_FrontEnd)
+![Github last commit](https://img.shields.io/github/last-commit/kaikyMoura/FileLens_FrontEnd)
+![License](https://img.shields.io/aur/license/LICENSE)
+![Languages count](https://img.shields.io/github/languages/count/kaikyMoura/FileLens_FrontEnd)
 
-First, run the development server:
+</div>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. About the Project
+This project is the frontend implementation for the [FileLens](https://github.com/kaikyMoura/FileLens_BackEnd), responsible for user authentication, file management, and manipulation. Built with Next.js, React, TypeScript, and Tailwind CSS, FileLens enables efficient file processing by leveraging the GeminiAI API to extract data from files and images.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br/>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Key Features
+- Secure user authentication and login with tokens issued by the back-end.
+- Access management using token-based authorization.
+- Advanced file manipulation and processing.
+- Data extraction from files and images using the GeminiAI API.
+- Responsive and modern UI built with Tailwind CSS.
 
-## Learn More
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Technologies & Dependencies
+<div display="inline-block">
+  <img alt="next-logo" width="48" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" />        
+</p> 
+### ....
