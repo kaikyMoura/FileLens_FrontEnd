@@ -1,30 +1,31 @@
+import { extractData, uploadFile } from "@/api/services/fileService"
+import Button from "@/components/Button"
 import Card from "@/components/Card"
+import CustomWebcam from "@/components/CustomWebCam"
 import FileSelector from "@/components/FileSelector"
 import { useLoadingContext } from "@/contexts/LoadingContextProvider"
 import { useThemeContext } from "@/contexts/ThemeContextProvider"
-import { useEffect, useState } from "react"
-import styles from "./styles.module.scss"
-import CustomWebcam from "@/components/CustomWebCam"
-import Button from "@/components/Button"
-import Image from "next/image"
-import dynamic from "next/dynamic"
-import { FaX } from "react-icons/fa6"
-import { extractData, uploadFile } from "@/api/services/fileService"
-import { useUserContext } from "@/contexts/UserInfoContextProvider"
 import Cookies from "js-cookie"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+import { useEffect, useState } from "react"
+import { FaX } from "react-icons/fa6"
+import styles from "./styles.module.scss"
+import { useRouter } from "next/router"
 
 const FileViewer = dynamic(() => import('@/components/FileViewer'), {
     ssr: false
 });
 
+const fileTypes = ["image/jpeg", "image/png", "image/jpg"]
+
 const Upload = () => {
     const { setLoading } = useLoadingContext()
     const { theme, toggleTheme } = useThemeContext()
 
-    const fileTypes = ["image/jpeg", "image/png", "image/jpg"]
+    const router = useRouter()
 
     const [file, setFile] = useState<File | null>()
-
 
     const [isCamOpen, setIsCamOpen] = useState(false)
 
@@ -57,6 +58,7 @@ const Upload = () => {
             setLoading(false)
             console.log(result.message)
             console.log(result.data)
+            router.push('/my-files')
         }
         else {
             setLoading(false)
@@ -85,7 +87,7 @@ const Upload = () => {
     }
 
     return (<>
-        <div className={`flex gap-4 ${styles.container}`}>
+        <div className={`flex gap-6 ${styles.container}`}>
             {!file ? (
                 <Card className={styles.card} pages={1}>
                     <FileSelector handleFileCapture={handleFileCapture} />
@@ -136,7 +138,7 @@ const Upload = () => {
 
             {file ? (
                 <>
-                    <Card className="flex justify-center mt-8" pages={1}>
+                    <Card className="flex justify-center mt-10" pages={1}>
                         <div className="flex flex-col items-center gap-6 font-semibold text-lg">
                             <h3 className="font-bold text-xl mb-4">What do you want to do with this file?</h3>
 

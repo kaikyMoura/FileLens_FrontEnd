@@ -1,10 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import Cookies from 'js-cookie';
+import { NextResponse } from "next/server";
 
-export default function middleware(request: NextRequest) {
-    const token = Cookies.get('Token')
+export default function middleware() {
+    // const token = Cookies.get('Token')
 
-    console.log(token)
+    // console.log(token)
 
     // if (token !== undefined && request.nextUrl.pathname === '/login') {
     //     return NextResponse.redirect(new URL('/', request.url))

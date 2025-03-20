@@ -8,8 +8,9 @@ const pages = [{ name: 'Home', link: '/' }, { name: 'Upload', link: '/upload' },
 
 const Header = () => {
     const { currentPage, setCurrentPage, setPageTitle } = usePageContext();
-
+    
     useEffect(() => {
+        console.log(currentPage)
     }, [currentPage])
 
     const handlePageChange = (index: number, name: string) => {

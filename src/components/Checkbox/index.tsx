@@ -1,6 +1,4 @@
 import { FaCheckSquare, FaRegCheckSquare } from "react-icons/fa";
-import { InputProps } from "../Input";
-import { ChangeEventHandler, useEffect, useState } from "react";
 
 interface CheckBoxProps {
     value: boolean;

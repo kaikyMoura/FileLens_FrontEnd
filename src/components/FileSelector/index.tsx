@@ -1,6 +1,6 @@
+import { useCallback, useRef, useState } from "react";
 import { FaCloudArrowUp } from "react-icons/fa6";
-import styles from './styles.module.scss'
-import { ChangeEventHandler, useCallback, useRef, useState } from "react";
+import styles from './styles.module.scss';
 
 const FileSelector = (props: { handleFileCapture: (file: File | null) => void }) => {
 
@@ -16,10 +16,10 @@ const FileSelector = (props: { handleFileCapture: (file: File | null) => void })
         }
         console.log(file)
         props.handleFileCapture(file)
-    }, [file]);
+    }, [props, file]);
 
-    const handleFileClick = (event: any) => {
-        event.preventDefault()
+    const handleFileClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         if (fileInputRef.current) {
             fileInputRef.current.click();
         }
@@ -28,7 +28,9 @@ const FileSelector = (props: { handleFileCapture: (file: File | null) => void })
     const handleFileUpload = (event: { target: { files: FileList | null } }) => {
         const file = event.target.files?.[0]
         console.log(file)
-        file ? props.handleFileCapture(file!) : null
+        if (file) {
+            props.handleFileCapture(file!)
+        }
     };
 
     return (

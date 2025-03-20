@@ -101,7 +101,7 @@ const Signup = () => {
                             </div>
                         </div>
                         <div className="mt-4">
-                            <Button className="!w-full font-bold" type={"primary"} text={"Join now"} height={45} action={createUser} />
+                            <Button className="!w-full font-bold" style={"primary"} text={"Join now"} type="submit" height={45} action={createUser} />
                         </div>
                         <div className="mt-4 flex">
                             <p className="font-medium">Already have a account ?</p>
@@ -141,7 +141,7 @@ const Signup = () => {
                     </ul>
                     <br />
                     <h2>4. Limitation of Liability</h2>
-                    <p>The application is provided <em>"as-is"</em>, without warranty. We are not liable for any damages arising from the use or inability to use this application.</p>
+                    <p>The application is provided <em>&quot;as-is&quot;</em>, without warranty. We are not liable for any damages arising from the use or inability to use this application.</p>
 
                     <br />                    <h2>5. Changes to Terms</h2>
                     <p>We may update these terms. Continued use of the app means you accept the updated terms.</p>

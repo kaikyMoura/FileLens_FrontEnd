@@ -6,22 +6,22 @@ import Button from "../Button";
 import styles from "./styles.module.scss";
 
 const CustomWebcam = (props: {
-    close?: MouseEventHandler<any>,
+    close?: MouseEventHandler<HTMLButtonElement>,
     isCameraOpen?: boolean,
     handleCapturedPhoto?: (image: string | null) => void
 }) => {
     const webcamRef = useRef<Webcam>(null);
     const [imgSrc, setImgSrc] = useState<string | null>('');
 
-    const retake = (): any => {
+    const retake = () => {
         setImgSrc(null);
     }
 
-    const save = (): any => {
+    const save = () => {
         props.handleCapturedPhoto!(imgSrc);
     }
 
-    const capture: any = useCallback(() => {
+    const capture = useCallback(() => {
         if (webcamRef.current) {
             const imageSrc = webcamRef.current.getScreenshot();
             setImgSrc(imageSrc)
@@ -32,7 +32,9 @@ const CustomWebcam = (props: {
         <>
             {props.isCameraOpen && (
                 <div className={`${styles.container}`}>
-                    <FaX className="flex absolute z-50 cursor-pointer mt-4 ml-4" color="black" fontSize={20} onClick={props.close} />
+                    <button onClick={props.close}>
+                        <FaX className="flex absolute z-50 cursor-pointer mt-4 ml-4" color="black" fontSize={20} />
+                    </button>
                     {imgSrc ? (
                         <>
                             <Image src={imgSrc} alt="webcam" height={600} width={600} />

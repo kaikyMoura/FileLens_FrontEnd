@@ -1,9 +1,9 @@
 import Button from "@/components/Button"
-import styles from "./styles.module.scss"
+import CookiesPopup from "@/components/CookiesPopup"
 import Cookies from "js-cookie"
 import { useRouter } from "next/router"
-import { use, useEffect, useState } from "react"
-import CookiesPopup from "@/components/CookiesPopup"
+import { useEffect, useState } from "react"
+import styles from "./styles.module.scss"
 
 const Home = () => {
     const router = useRouter()

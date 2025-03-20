@@ -1,8 +1,8 @@
 'use client'
-import { useState, useEffect } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
 import Mammoth from "mammoth";
-import styles from "./styles.module.scss"
+import { useEffect, useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import styles from "./styles.module.scss";
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -13,7 +13,7 @@ const FileViewer = ({ file }: { file: File }) => {
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
     const [numPages, setNumPages] = useState<number>();
-    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageNumber] = useState<number>(1);
 
     useEffect(() => {
         console.log(file.type)

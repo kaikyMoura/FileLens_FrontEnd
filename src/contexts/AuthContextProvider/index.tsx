@@ -1,12 +1,10 @@
 "use client";
 import DashBoard from '@/components/Dashboard';
+import { User } from '@/model/User';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { useLoadingContext } from '../LoadingContextProvider';
-import Cookies from 'js-cookie';
-import { User } from '@/model/User';
-import { renewToken } from '@/api/services/userService';
-import { useUserContext } from '../UserInfoContextProvider';
 
 type AuthContextProps = {
     user?: User,
@@ -22,7 +20,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const router = useRouter();
 
     const { setLoading } = useLoadingContext();
-    const { user } = useUserContext()
 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -69,11 +66,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
 
         setLoading(false);
-    }, [router.pathname, setLoading]);
+    }, [router, setLoading]);
 
     useEffect(() => {
         handleAuthentication();
-    }, [router.pathname, handleAuthentication]);
+    }, [router, router.pathname, handleAuthentication]);
 
     return (
         <AppContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
