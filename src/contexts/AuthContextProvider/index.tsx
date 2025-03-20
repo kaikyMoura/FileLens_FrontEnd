@@ -39,34 +39,30 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, [handleRouteChange, handleRouteComplete, router.events]);
 
     const handleAuthentication = useCallback(async () => {
-        const token = Cookies.get('Token')
-        console.log('Token:', Cookies.get('Token'));
+        const token = Cookies.get('Token');
 
         setLoading(true);
-        console.log(token)
         if (!token) {
             Cookies.remove('Token');
             Cookies.remove('UserEmail');
             if (!publicPages.includes(router.pathname)) {
                 setIsAuthenticated(false);
-                router.push('/login')
-
+                if (router.pathname !== '/login') {
+                    router.push('/login');
+                }
             } else {
                 setIsAuthenticated(false);
-                router.push(router.pathname)
             }
         } else {
-            setIsAuthenticated(true)
+            setIsAuthenticated(true);
             if (router.pathname === '/') {
-                router.push('/')
-            }
-            else {
-                router.push(router.pathname)
+                if (router.pathname !== '/') {
+                    router.push('/');
+                }
             }
         }
-
         setLoading(false);
-    }, [router, setLoading]);
+    }, [router, publicPages, setLoading]);
 
     useEffect(() => {
         handleAuthentication();
