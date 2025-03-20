@@ -8,11 +8,11 @@ const Button = (props: {
     height?: number
     text: string;
     className?: string;
-    action?: (event: { preventDefault: () => void }) => {}
+    action?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
     const [color, setColor] = useState('')
 
-    const handleClick = (event: { preventDefault: () => void }) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         if (props.action) {
             props.action(event)

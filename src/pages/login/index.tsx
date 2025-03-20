@@ -1,14 +1,14 @@
+import { login } from "@/api/services/userService"
 import Button from "@/components/Button"
 import Card from "@/components/Card"
 import Input from "@/components/Input"
 import { useLoadingContext } from "@/contexts/LoadingContextProvider"
+import { User } from "@/model/User"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { SetStateAction, useState } from "react"
-import { FaFile } from "react-icons/fa6"
+import { FaFolderOpen } from "react-icons/fa6"
 import styles from "./styles.module.scss"
-import Link from "next/link"
-import { login } from "@/api/services/userService"
-import { User } from "@/model/User"
 
 const Login = () => {
     const router = useRouter()
@@ -43,7 +43,7 @@ const Login = () => {
             <Card className="h-[100vh] flex justify-center items-center" pages={1}>
                 <div className={styles.card}>
                     <div className={`flex justify-center gap-2 mb-2 ${styles.icon}`}>
-                        <FaFile fontSize={28} color="gold" />
+                        <FaFolderOpen fontSize={28} color="gold" />
                         <h3 className="flex items-center text-xl">File lens</h3>
                     </div>
 
