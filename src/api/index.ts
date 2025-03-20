@@ -1,11 +1,11 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { renewToken } from "./services/userService";
+import { useRouter } from "next/router";
+
 
 const api = axios.create({
   baseURL: 'http://localhost:5000/api/v1',
-  headers: {
-    'Content-Type': 'application/json'
-  }
 })
 
 api.interceptors.request.use(
@@ -27,20 +27,36 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const router = useRouter();
     const originalRequest = error.config;
-    if (error.response.status === 403 && !originalRequest._retry) {
+
+    if (error.response?.status === 403 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        //          We are trusting the middleware to do the renewal correctly
-        const response = await axios.post(originalRequest)
-        return response;
+        const email = Cookies.get('UserEmail');
+        if (!email) throw new Error("Email not found in cookies");
+
+        const renewResult = await renewToken(email);
+
+        if (renewResult.success === true) {
+          const token = Cookies.get('Token');
+
+          originalRequest.headers['Authorization'] = `Bearer ${token}`;
+
+          return api(originalRequest);
+        } else {
+          console.error('Failed to renew token:', renewResult.error);
+          router.push('/login');
+          return Promise.reject(error);
+        }
       } catch (err) {
-        console.error('Error tryng to renew the token', err);
-        window.location.href = '/login';
+        console.error('Error trying to renew the token', err);
+        router.push('/login');
         return Promise.reject(err);
       }
     }
+
     return Promise.reject(error);
   }
 );

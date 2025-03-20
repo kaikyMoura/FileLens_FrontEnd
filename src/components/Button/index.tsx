@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss"
 
-const Button = (props: {  
-    type: 'primary' | 'secondary';
+const Button = (props: {
+    style: 'primary' | 'secondary';
+    type?: 'button' | 'submit' | 'reset';
     width?: number
     height?: number
     text: string;
     className?: string;
-    action?: (event: { preventDefault: () => void }) => {} }) => {
+    action?: (event: { preventDefault: () => void }) => {}
+}) => {
     const [color, setColor] = useState('')
 
     const handleClick = (event: { preventDefault: () => void }) => {
@@ -18,19 +20,19 @@ const Button = (props: {
     }
 
     useEffect(() => {
-        switch (props.type) {
+        switch (props.style) {
             case 'primary':
                 setColor('gold')
                 break;
             case 'secondary':
                 setColor('white')
         }
-    }, [props.type])
+    }, [props.style])
 
     return (
         <>
-            <button className={`${props.className} ${styles.styledButton}`} style={{ width: props.width, height: props.height, backgroundColor: color }} onClick={handleClick}>
-                <p style={{ color: props.type == 'primary' ? '#161616': '#2e2e2e' }}>{props.text}</p>
+            <button className={`${props.className} ${styles.styledButton}`} type={props.type} style={{ width: props.width, height: props.height, backgroundColor: color }} onClick={handleClick}>
+                <p style={{ color: props.style == 'primary' ? '#161616' : '#2e2e2e' }}>{props.text}</p>
             </button>
         </>
     )

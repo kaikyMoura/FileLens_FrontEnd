@@ -5,6 +5,7 @@ import { AppProps } from "next/app";
 import { Tooltip } from "react-tooltip";
 import '../styles/globals.css';
 import { PageProvider } from "@/contexts/PageContextProvider";
+import { UserProvider } from "@/contexts/UserInfoContextProvider";
 
 const App = ({ Component, pageProps }: AppProps) => {
 
@@ -12,12 +13,14 @@ const App = ({ Component, pageProps }: AppProps) => {
         <>
             <LoadingProvider>
                 <PageProvider>
-                    <ThemeProvider>
-                        <AuthProvider>
-                            <Component {...pageProps} />
-                        </AuthProvider>
-                        <Tooltip id="my-tooltip" place="right-start" />
-                    </ThemeProvider>
+                    <UserProvider>
+                        <ThemeProvider>
+                            <AuthProvider>
+                                <Component {...pageProps} />
+                            </AuthProvider>
+                            <Tooltip id="my-tooltip" place="right-start" />
+                        </ThemeProvider>
+                    </UserProvider>
                 </PageProvider>
             </LoadingProvider>
         </>

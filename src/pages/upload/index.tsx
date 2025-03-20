@@ -9,6 +9,9 @@ import Button from "@/components/Button"
 import Image from "next/image"
 import dynamic from "next/dynamic"
 import { FaX } from "react-icons/fa6"
+import { uploadFile } from "@/api/services/fileService"
+import { useUserContext } from "@/contexts/UserInfoContextProvider"
+import Cookies from "js-cookie"
 
 const FileViewer = dynamic(() => import('@/components/FileViewer'), {
     ssr: false
@@ -17,6 +20,7 @@ const FileViewer = dynamic(() => import('@/components/FileViewer'), {
 const Upload = () => {
     const { setLoading } = useLoadingContext()
     const { theme, toggleTheme } = useThemeContext()
+    const { user } = useUserContext()
 
     const fileTypes = ["image/jpeg", "image/png", "image/jpg"]
 
@@ -25,6 +29,24 @@ const Upload = () => {
 
 
     const [isCamOpen, setIsCamOpen] = useState(false)
+
+    const saveFile = async () => {
+        if(!file) {
+            console.error("File not found")
+        }
+        setLoading(true)
+        console.log(file)
+        const result = await uploadFile(Cookies.get('UserEmail')!, file!)
+        if (result.success === true) {
+            setLoading(false)
+            console.log(result.message)
+            console.log(result.data)
+        }
+        else {
+            setLoading(false)
+            console.log(result.error)
+        }
+    }
 
     useEffect(() => { }, [theme, toggleTheme])
 
@@ -39,10 +61,11 @@ const Upload = () => {
         setPhoto(imageSrc)
     }
 
-    const handleFileCapture = (file: File | null) => {
-        console.log(file)
+    const handleFileCapture = (capturedFile: File | null) => {
         setPhoto(null)
-        setFile(file)
+        setFile(capturedFile)
+
+        console.log(file)
     }
 
     return (<>
@@ -56,7 +79,7 @@ const Upload = () => {
 
                         <div className="mt-5 flex justify-center">
                             <Button
-                                type={file ? "secondary" : "primary"}
+                                style={file ? "secondary" : "primary"}
                                 text={file ? "Retake picture" : "Take a picture"}
                                 action={handleCameraOpen}
                                 width={200}
@@ -98,16 +121,27 @@ const Upload = () => {
                             <h3 className="font-bold text-xl mb-4">What do you want to do with this file?</h3>
 
                             <Button
-                                type="primary"
+                                type="button"
+                                style="primary"
                                 text="Save file"
+                                action={saveFile}
+                                width={200}
+                                height={50}
+                            />
+
+                            <Button
+                                type="button"
+                                style="primary"
+                                text="Extract data from file"
                                 action={handleCameraOpen}
                                 width={200}
                                 height={50}
                             />
 
                             <Button
-                                type="primary"
-                                text="Extract data from file"
+                                type="button"
+                                style="primary"
+                                text="Convert file"
                                 action={handleCameraOpen}
                                 width={200}
                                 height={50}

@@ -30,7 +30,7 @@ const Login = () => {
             const response = await login(user)
             if (response.success === true) {
                 setLoading(false)
-                router.replace("/")
+                router.push("/")
             }
             else {
                 setLoading(false)
@@ -55,7 +55,7 @@ const Login = () => {
                     <Input label={"Password"} placeholder={"Your account password"} type={"password"} onChange={(e: { target: { value: SetStateAction<string> } }) =>
                         setUserPassword(e.target.value)} value={userPassword} />
                     <div>
-                        <Button className="!w-full mt-2 font-bold" type={"primary"} text={"Login"} height={45} action={doLogin} />
+                        <Button className="!w-full mt-2 font-bold" style={"primary"} type="submit" text={"Login"} height={45} action={doLogin} />
                     </div>
                     <div className="mt-4 flex">
                         <p className="font-medium">Forgot your password ?</p>

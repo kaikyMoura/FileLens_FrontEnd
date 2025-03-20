@@ -9,10 +9,15 @@ const extractData = async (file: File): Promise<ApiResponse<string>> => {
     try {
         formData.append("file", file)
 
-        const response = await api.post('/file/extract-data', formData)
+        const response = await api.post('/file/extract-data', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
 
         return {
             success: true,
+            message: response.data.message,
             data: response.data.data
         }
     } catch (err) {
@@ -31,6 +36,42 @@ const extractData = async (file: File): Promise<ApiResponse<string>> => {
     }
 }
 
+const uploadFile = async (email: string, file: File): Promise<ApiResponse<unknown>> => {
+    const formData = new FormData()
+
+    try {
+        formData.append("email", email)
+        formData.append("file", file)
+
+        console.log([...formData.entries()])
+        const response = await api.post('/file/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+
+        return {
+            success: true,
+            message: response.data.message,
+            data: response.data.url
+        }
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const axiosError = err as AxiosError<ErrorResponse>;
+            if (axiosError.response) {
+                return {
+                    success: false,
+                    error: axiosError.response.data.details
+                };
+            }
+        }
+    }
+    return {
+        error: "Internal server error"
+    }
+}
+
 export {
-    extractData
+    extractData,
+    uploadFile
 }

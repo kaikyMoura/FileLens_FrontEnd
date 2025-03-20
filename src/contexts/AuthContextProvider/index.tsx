@@ -4,8 +4,12 @@ import { useRouter } from 'next/router';
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { useLoadingContext } from '../LoadingContextProvider';
 import Cookies from 'js-cookie';
+import { User } from '@/model/User';
+import { renewToken } from '@/api/services/userService';
+import { useUserContext } from '../UserInfoContextProvider';
 
 type AuthContextProps = {
+    user?: User,
     isAuthenticated: boolean | null;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
@@ -15,9 +19,12 @@ const AppContext = createContext<AuthContextProps | undefined>(undefined)
 const publicPages = ['/login', '/registration', '/getStarted', '/verifyAccount', '/accountVerify', '/resetPassword', '/changePassword']
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-    const { setLoading } = useLoadingContext();
     const router = useRouter();
+
+    const { setLoading } = useLoadingContext();
+    const { user } = useUserContext()
+
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
     const handleRouteChange = useCallback(() => setLoading(true), [setLoading]);
     const handleRouteComplete = useCallback(() => setLoading(false), [setLoading]);
@@ -36,16 +43,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const handleAuthentication = useCallback(async () => {
         const token = Cookies.get('Token')
-        setLoading(true);
+        console.log('Token:', Cookies.get('Token'));
 
+        setLoading(true);
+        console.log(token)
         if (!token) {
+            Cookies.remove('Token');
+            Cookies.remove('UserEmail');
             if (!publicPages.includes(router.pathname)) {
                 setIsAuthenticated(false);
+                router.push('/login')
+
             } else {
                 setIsAuthenticated(false);
+                router.push(router.pathname)
             }
         } else {
             setIsAuthenticated(true)
+            if (router.pathname === '/') {
+                router.push('/')
+            }
+            else {
+                router.push(router.pathname)
+            }
         }
 
         setLoading(false);

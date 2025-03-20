@@ -50,13 +50,13 @@ const CustomWebcam = (props: {
                         {imgSrc ?
                             (
                                 <div className="flex flex-col gap-6">
-                                    <Button type={"secondary"} width={200} height={50} text={"Retake photo"} action={retake} />
-                                    <Button type={"primary"} width={200} height={50} text={"Save photo"} action={save} />
+                                    <Button style={"secondary"} width={200} height={50} text={"Retake photo"} action={retake} />
+                                    <Button style={"primary"} width={200} height={50} text={"Save photo"} action={save} />
                                 </div>
                             )
                             :
                             (
-                                <Button className="" type={"primary"} width={200} height={50} text={"Capture photo"} action={capture} />
+                                <Button className="" style={"primary"} width={200} height={50} text={"Capture photo"} action={capture} />
                             )
                         }
                     </div>
