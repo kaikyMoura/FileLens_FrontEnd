@@ -70,6 +70,8 @@ const renewToken = async (email: string): Promise<ApiResponse<unknown>> => {
 
         console.log(token)
         if (token && expiresIn) {
+            Cookies.remove('Token')
+            
             Cookies.set('Token', token, { path: '/', secure: true, sameSite: 'Strict' })
             Cookies.set('TokenExpirationDate', expiresIn, { path: '/', secure: true, sameSite: 'Strict' })
             return { success: true }

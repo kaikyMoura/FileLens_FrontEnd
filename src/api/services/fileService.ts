@@ -3,11 +3,11 @@ import api from ".."
 import { ApiResponse } from "@/model/ApiResponse"
 import { ErrorResponse } from "@/model/ErrorReponse"
 
-const extractData = async (file: File): Promise<ApiResponse<string>> => {
+const extractData = async (file: File | string | null): Promise<ApiResponse<string>> => {
     const formData = new FormData()
 
     try {
-        formData.append("file", file)
+        formData.append("file", file!)
 
         const response = await api.post('/file/extract-data', formData, {
             headers: {
@@ -36,12 +36,12 @@ const extractData = async (file: File): Promise<ApiResponse<string>> => {
     }
 }
 
-const uploadFile = async (email: string, file: File): Promise<ApiResponse<unknown>> => {
+const uploadFile = async (email: string, file: File | string | null): Promise<ApiResponse<unknown>> => {
     const formData = new FormData()
 
     try {
         formData.append("email", email)
-        formData.append("file", file)
+        formData.append("file", file!)
 
         console.log([...formData.entries()])
         const response = await api.post('/file/upload', formData, {
