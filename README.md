@@ -1,5 +1,5 @@
-<h2 align="center">Expense Manager API - Backend</h2>
-<p align="center"><i>Repository for the Expense Manager backend API</i></p>
+<h2 align="center">FileLens</h2>
+<p align="center"><i>Repository for the FileLens FrontEnd</i></p>
 
 <div align="center">
   
