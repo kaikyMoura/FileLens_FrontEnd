@@ -1,10 +1,11 @@
 "use client";
 import DashBoard from '@/components/Dashboard';
-import { User } from '@/model/User';
+import { User } from '@/types/user';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import React, { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 import { useLoadingContext } from '../LoadingContextProvider';
+import { useUserContext } from '../UserInfoContextProvider';
 
 type AuthContextProps = {
     user?: User,
@@ -63,6 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
         setLoading(false);
     }, [router, publicPages, setLoading]);
+
 
     useEffect(() => {
         handleAuthentication();

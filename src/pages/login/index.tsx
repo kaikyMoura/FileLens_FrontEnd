@@ -1,24 +1,27 @@
-import { login } from "@/api/services/userService"
+import { login } from "@/services/userService"
 import Button from "@/components/Button"
 import Card from "@/components/Card"
 import Input from "@/components/Input"
 import { useLoadingContext } from "@/contexts/LoadingContextProvider"
-import { User } from "@/model/User"
+import { User } from "@/types/user"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { SetStateAction, useState } from "react"
 import { FaFolderOpen } from "react-icons/fa6"
 import styles from "./styles.module.scss"
+import Cookies from "js-cookie"
+import { useUserContext } from "@/contexts/UserInfoContextProvider"
 
 const Login = () => {
     const router = useRouter()
     const { setLoading } = useLoadingContext()
-    // const { setIsAuthenticated } = useAuthContext()
+
+    const { setUserEmail } = useUserContext()
 
     const [email, setEmail] = useState('')
     const [userPassword, setUserPassword] = useState('')
 
-    const doLogin = async () => {
+    const handleLogin = async () => {
         const user: User = {
             email: email,
             user_password: userPassword,
@@ -29,6 +32,10 @@ const Login = () => {
         if (user) {
             const response = await login(user)
             if (response.success === true) {
+                const email = Cookies.get('UserEmail');
+                if (email) {
+                    setUserEmail(email);
+                }
                 setLoading(false)
                 router.push("/")
             }
@@ -55,7 +62,7 @@ const Login = () => {
                     <Input label={"Password"} placeholder={"Your account password"} type={"password"} onChange={(e: { target: { value: SetStateAction<string> } }) =>
                         setUserPassword(e.target.value)} value={userPassword} />
                     <div>
-                        <Button className="!w-full mt-2 font-bold" style={"primary"} type="submit" text={"Login"} height={45} action={doLogin} />
+                        <Button className="!w-full mt-2 font-bold" style={"primary"} type="submit" text={"Login"} height={45} action={handleLogin} />
                     </div>
                     <div className="mt-4 flex">
                         <p className="font-medium">Forgot your password ?</p>

@@ -19,7 +19,7 @@ body {
   margin: 0;
   color: var(--text-color);
   background: var(--background);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   transition: background 0.3s ease, color 0.3s ease;
 }
 

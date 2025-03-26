@@ -12,10 +12,10 @@
 }
 
 .modal {
+    position: relative;
     background-color: var(--component-color);
     padding: 2em;
     border-radius: 16px;
-    width: 80%;
     transform: translateY(-50px);
     z-index: 1000;
     animation: fadeIn 0.5s forwards;
@@ -40,84 +40,10 @@
         height: 100%;
         width: 100%;
     }
-
-    .modal input {
-        width: 100% !important;
-        height: 3.19em;
-    }
-
-    .addButton {
-        width: 100% !important;
-    }
-
-    .deleteButton {
-        width: 100% !important;
-    }
-
-    .cancelButton {
-        width: 100% !important;
-    }
 }
 
 @media (min-width: 768px) {
     .modal {
         transform: scale(1.2);
     }
-}
-
-.modal input {
-    width: 24.13em;
-    height: 3.19em;
-    padding: 16px;
-    gap: 16px;
-    border-radius: 8px;
-    border: 1px solid #D7DDE9;
-    color: #0000008F;
-}
-
-.modal input:hover {
-    border: 1px solid #000;
-}
-
-.modal select {
-    width: 24.13em;
-    height: 3.19em;
-    padding: 16px;
-    padding: 4px;
-    border-radius: 8px;
-    border: 1px solid #D7DDE9;
-    color: #0000008F;
-}
-
-.modal h3 {
-    color: #0000008A;
-}
-
-.addButton {
-    color: #ffff;
-    width: 11.56em;
-    height: 3.19em;
-    border-radius: 8px;
-}
-
-.deleteButton {
-    background: red;
-    color: #ffff;
-    width: 11.56em;
-    height: 3.19em;
-    border-radius: 8px;
-}
-
-.cancelButton {
-    background: #E7EEFB;
-    width: 11.56em;
-    height: 3.19em;
-    border-radius: 8px;
-    color: #000000;
-}
-
-.videoElement {
-    min-width: 600px;
-    min-height: 600px;
-    background-color: #D7DDE9;
 }

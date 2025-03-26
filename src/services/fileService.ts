@@ -1,7 +1,7 @@
+import { ApiResponse } from "@/types/ApiResponse"
+import { ErrorResponse } from "@/types/ErrorReponse"
 import axios, { AxiosError } from "axios"
-import api from ".."
-import { ApiResponse } from "@/model/ApiResponse"
-import { ErrorResponse } from "@/model/ErrorReponse"
+import api from "./api"
 
 const extractData = async (file: File | string | null): Promise<ApiResponse<string>> => {
     const formData = new FormData()

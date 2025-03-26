@@ -1,9 +1,9 @@
-import { ErrorResponse } from "@/model/ErrorReponse";
-import { User } from "@/model/User";
+import { ApiResponse } from "@/types/ApiResponse";
+import { ErrorResponse } from "@/types/ErrorReponse";
+import { User } from "@/types/user";
 import axios, { AxiosError } from "axios";
 import Cookies from "js-cookie";
-import api from "..";
-import { ApiResponse } from "@/model/ApiResponse";
+import api from "./api";
 
 const signup = async (user: User): Promise<ApiResponse<unknown>> => {
     console.log(user)
@@ -40,6 +40,7 @@ const login = async (user: User): Promise<ApiResponse<unknown>> => {
         if (token && expiresIn) {
             Cookies.set('Token', token, { path: '/', secure: true, sameSite: 'Strict', expires: new Date(new Date().getTime() + expiresIn * 1000) })
             Cookies.set('UserEmail', user.email!, { path: '/', secure: true, sameSite: 'Strict' })
+
             return { success: true }
         }
         else {
@@ -71,7 +72,7 @@ const renewToken = async (email: string): Promise<ApiResponse<unknown>> => {
         console.log(token)
         if (token && expiresIn) {
             Cookies.remove('Token')
-            
+
             Cookies.set('Token', token, { path: '/', secure: true, sameSite: 'Strict' })
             Cookies.set('TokenExpirationDate', expiresIn, { path: '/', secure: true, sameSite: 'Strict' })
             return { success: true }
@@ -96,7 +97,7 @@ const renewToken = async (email: string): Promise<ApiResponse<unknown>> => {
 }
 
 export {
-    signup,
     login,
-    renewToken
-}
+    renewToken, signup
+};
+

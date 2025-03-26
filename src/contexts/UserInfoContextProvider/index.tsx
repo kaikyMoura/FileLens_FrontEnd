@@ -1,18 +1,22 @@
-import { User } from "@/model/User";
+import { User } from "@/types/user";
 import React, { Dispatch, SetStateAction, ReactNode, useState, createContext } from "react";
 
 type UserInfoContextProps = {
-    user: Omit<User, 'id' | 'user_password' | 'createdAt' | 'updatedAt'> | null,
-    setUser: Dispatch<SetStateAction<User | null>>,
+    userName: string
+    userEmail: string
+    setUserEmail: Dispatch<SetStateAction<string>>,
+    setUserName: Dispatch<SetStateAction<string>>,
 }
+
 
 const UserContext = createContext<UserInfoContextProps | undefined>(undefined)
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<Omit<User, 'id' | 'user_password' | 'createdAt' | 'updatedAt'> | null>(null);
+    const [userEmail, setUserEmail] = useState("");
+    const [userName, setUserName] = useState("");
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ userName, userEmail, setUserEmail, setUserName }}>
             {children}
         </UserContext.Provider>
     );

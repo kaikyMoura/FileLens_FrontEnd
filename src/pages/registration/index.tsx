@@ -4,13 +4,13 @@ import CheckBox from "@/components/Checkbox";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import { useLoadingContext } from "@/contexts/LoadingContextProvider";
-import { User } from "@/model/User";
+import { User } from "@/types/user";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useState } from "react";
 import { FaFolderOpen, FaX } from "react-icons/fa6";
 import styles from "./styles.module.scss";
-import { signup } from "@/api/services/userService";
+import { signup } from "@/services/userService";
 
 const Signup = () => {
     const router = useRouter()
@@ -113,7 +113,7 @@ const Signup = () => {
                 </Card >
             </div >
 
-            {openModal && <Modal isModalOpen={openModal} type={""} closeModal={() => setOpenModal(!openModal)}>
+            {openModal && <Modal isModalOpen={openModal} closeModal={() => setOpenModal(!openModal)}>
                 <section>
                     <button className="fixed ml-[100%]" onClick={() => setOpenModal(!openModal)}>
                         <FaX fontSize={20} color="black" />

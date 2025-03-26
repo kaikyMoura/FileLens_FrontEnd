@@ -10,10 +10,11 @@ export interface InputProps {
     placeholder?: string;
     type?: "text" | "password" | "email" | "number" | "file" | "checkbox";
     maxLength?: number;
-    accept?: string
+    accept?: string;
+    className?: string;
 }
 
-const Input = ({ onClick, onChange, type, label, placeholder, value, maxLength, accept }: InputProps) => {
+const Input = ({ onClick, onChange, type, label, placeholder, value, maxLength, className }: InputProps) => {
     const [changeIcon, setChangeIcon] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -44,8 +45,8 @@ const Input = ({ onClick, onChange, type, label, placeholder, value, maxLength, 
         <>
             <div className={`${styles.inputButton}`}>
                 <label>{label}</label>
-                <input className={`${styles.input}`} type={type === "password" && showPassword ? "text" : type}
-                    onClick={onClick} placeholder={placeholder} onChange={onChange} value={value} maxLength={maxLength} accept={accept} />
+                <input className={`${styles.input} ${className}`} type={type === "password" && showPassword ? "text" : type}
+                    onClick={onClick} placeholder={placeholder} onChange={onChange} value={value} maxLength={maxLength}/>
                 {type === "password" && (
                     <>
                         {!changeIcon ?

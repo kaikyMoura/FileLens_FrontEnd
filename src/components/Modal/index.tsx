@@ -2,8 +2,8 @@ import styles from './styles.module.scss'
 
 const Modal = (props: {
     id?: string
+    className?: string
     isModalOpen: boolean
-    type: string
     closeModal: () => void
     children: React.ReactNode
 }) => {
@@ -12,7 +12,7 @@ const Modal = (props: {
         <>
             {props.isModalOpen &&
                 (<div className={styles.modalContainer} onClick={props.closeModal}>
-                    <div className={`${styles.modal} flex flex-col`} onClick={(e) => e.stopPropagation()}>
+                    <div className={`${styles.modal} ${props.className} flex flex-col`} onClick={(e) => e.stopPropagation()}>
                         {props.children}
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
-import { renewToken } from "./services/userService";
+import { renewToken } from "../services/userService";
 import { useRouter } from "next/router";
 
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api/v1',
+  baseURL: 'https://filelens-backend0-465575334917.us-central1.run.app/api/v1',
 })
 
 api.interceptors.request.use(
