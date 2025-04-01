@@ -3,12 +3,14 @@ import { FaFolderOpen } from 'react-icons/fa6';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import { usePageContext } from '@/contexts/PageContextProvider';
+import { useRouter } from 'next/router';
 
 const pages = [{ name: 'Home', link: '/' }, { name: 'My notes', link: '/my-notes' }, { name: 'My files', link: '/files' }];
 
 const Header = () => {
+    const router = useRouter();
     const { currentPage, setCurrentPage, setPageTitle } = usePageContext();
-    
+
     useEffect(() => {
         console.log(currentPage)
     }, [currentPage])
@@ -31,7 +33,7 @@ const Header = () => {
                             {pages.map((page, index) => (
 
                                 <li key={index} style={{
-                                    borderBottom: currentPage === index ? '2px solid gold' : 'none',
+                                    borderBottom: currentPage === index && page.link === router.pathname ? '2px solid gold' : 'none',
                                 }}>
                                     <Link href={page.link}>
                                         <p className='font-medium text-base'

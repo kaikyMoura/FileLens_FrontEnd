@@ -10,7 +10,7 @@ const DashBoard = (props: {
             <header className="fixed top-0 left-0 w-full">
                 <Header />
             </header>
-            <main className="min-h-screen max-w-screen max-h-screen flex justify-center items-center">
+            <main className="min-h-screen max-w-screen max-h-screen flex justify-center items-center mt-20">
                 {props.children}
             </main>
             <Footer />

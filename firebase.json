@@ -1,7 +1,18 @@
 {
   "hosting": {
     "site": "filelens",
-    "public": "public"
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "ssr"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   },
   "emulators": {
     "dataconnect": {

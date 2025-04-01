@@ -4,13 +4,30 @@
     box-shadow: 0 0 10px rgba(185, 183, 183, 0.1);
 
     max-width: 500px;
-    max-height: 500px;
+    max-height: 800px;
     border: 1px solid #808080;
+    width: 100%;
+    padding: 1rem;
+}
 
-    & textarea {
-        // border: 1px solid black;
-        height: 100%;
-        resize: vertical;
-        overflow: hidden;
+.textareaNote {
+    min-height: 50px;
+    max-height: 700px;
+    max-width: 500px;
+    min-width: 150px;
+    overflow-y: hidden;
+    resize: none;
+    padding: 0.5rem;
+
+    &:focus {
+        border: 1px solid #4e4e4e;
+    }
+}
+
+.modal_close_button {
+    outline: none;
+
+    & :hover {
+        background-color: #4e4e4e;
     }
 }

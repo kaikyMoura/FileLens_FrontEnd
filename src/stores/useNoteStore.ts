@@ -4,6 +4,7 @@ import { deleteDoc, doc, getDocs, getFirestore, updateDoc } from 'firebase/fires
 import { addDoc, collection } from 'firebase/firestore';
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid'
+import Cookies from 'js-cookie';
 
 export interface INote {
   id: string;
@@ -32,9 +33,10 @@ export const useNoteStore = create<NoteStore>((set) => ({
         ...(doc.data() as Omit<INote, 'id'>),
       }));
       set({ notes });
+      const userNotes = notes.filter(note => note.email === Cookies.get("UserEmail"));
       return {
         success: true,
-        data: notes
+        data: userNotes
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -56,6 +58,7 @@ export const useNoteStore = create<NoteStore>((set) => ({
     try {
       const docRef = await addDoc(collection(db, "notes"), {
         id,
+        email,
         title,
         content,
         createdAt: new Date(),
@@ -113,16 +116,17 @@ export const useNoteStore = create<NoteStore>((set) => ({
     }
   },
 
+  // TODO fix this implementation 
   deleteNote: async (id: string) => {
     try {
       await deleteDoc(doc(db, "notes", id));
       set((state) => ({
         notes: state.notes.filter(note => note.id !== id),
       }));
-
+      
       return {
         success: true,
-        message: "Note deletd sucessfully"
+        message: "Note deleted sucessfully"
       }
     } catch (err) {
       if (err instanceof Error) {

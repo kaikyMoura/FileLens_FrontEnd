@@ -13,6 +13,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { FaX } from "react-icons/fa6"
 import styles from "./styles.module.scss"
+import { useNoteStore } from "@/stores/useNoteStore"
 
 const FileViewer = dynamic(() => import('@/components/FileViewer'), {
     ssr: false
@@ -23,6 +24,7 @@ const fileTypes = ["image/jpeg", "image/png", "image/jpg"]
 const Home = () => {
     const { setLoading } = useLoadingContext()
     const { theme, toggleTheme } = useThemeContext()
+    const { addNote } = useNoteStore()
 
     const router = useRouter()
 
@@ -46,8 +48,6 @@ const Home = () => {
         Cookies.set('UserConsent', 'true', { path: '/', secure: true, sameSite: 'Strict' })
         setOpenPopup(false)
     }
-
-
 
     const saveFile = async () => {
         if (!file) {
@@ -78,7 +78,18 @@ const Home = () => {
             setLoading(false)
             console.log(result.message)
             console.log(result.data)
-            router.push('/my-files')
+
+            const userEmail = Cookies.get("UserEmail")
+            if (!userEmail) {
+                console.error("User email not found in cookies");
+                return;
+            }
+
+            const response = await addNote(file?.name!, result.data!, userEmail)
+
+            if (response.success === true) {
+                router.push('/my-notes')
+            }
         }
         else {
             setLoading(false)
@@ -148,12 +159,8 @@ const Home = () => {
             )}
 
             {file && !fileTypes.includes(file.type as string) && (
-                <div className="mt-[5em]">
-                    <FaX className="flex absolute z-50 cursor-pointer mt-6 ml-6"
-                        data-tooltip-id="my-tooltip"
-                        data-tooltip-content={"Exit"}
-                        color="black" fontSize={20} onClick={() => setFile(null)} />
-                    {typeof file === 'string' ? null : <FileViewer file={file} />}
+                <div className="">
+                    {typeof file === 'string' ? null : <FileViewer className="h-[350px]" file={file} />}
                 </div>
             )}
 
@@ -162,7 +169,6 @@ const Home = () => {
                     <Card className="flex justify-center mt-10" pages={1}>
                         <div className="flex flex-col items-center gap-6 font-semibold text-lg">
                             <h3 className="font-bold text-xl mb-4">What do you want to do with this file?</h3>
-
                             <Button
                                 type="button"
                                 style="primary"
@@ -175,7 +181,7 @@ const Home = () => {
                             <Button
                                 type="button"
                                 style="primary"
-                                text="Extract data from file"
+                                text="Extract data to a note"
                                 action={extractDataFromFile}
                                 width={200}
                                 height={50}

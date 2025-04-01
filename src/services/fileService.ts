@@ -71,7 +71,34 @@ const uploadFile = async (email: string, file: File | string | null): Promise<Ap
     }
 }
 
-export {
-    extractData,
-    uploadFile
+const genereteFileFromText = async (type: string, text: string, fileTitle: string): Promise<ApiResponse<ArrayBuffer>> => {
+    try {
+        const response = await api.post('/file/generate/f/text', { type, text, fileTitle },
+            { responseType: "arraybuffer" })
+
+        return {
+            success: true,
+            message: response.data.message,
+            data: response.data,
+            headers: response.headers
+        }
+    } catch (err) {
+        if (axios.isAxiosError(err)) {
+            const axiosError = err as AxiosError<ErrorResponse>;
+            if (axiosError.response) {
+                return {
+                    success: false,
+                    error: axiosError.response.data.details
+                };
+            }
+        }
+    }
+    return {
+        error: "Internal server error"
+    }
 }
+
+export {
+    extractData, genereteFileFromText, uploadFile
+}
+

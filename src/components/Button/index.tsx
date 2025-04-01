@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss"
 
-const Button = (props: {
+const Button = ({ style, type, width, height, text, className, action }: {
     style: 'primary' | 'secondary';
     type?: 'button' | 'submit' | 'reset';
     width?: number
@@ -14,25 +14,25 @@ const Button = (props: {
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
-        if (props.action) {
-            props.action(event)
+        if (action) {
+            action(event)
         }
     }
 
     useEffect(() => {
-        switch (props.style) {
+        switch (style) {
             case 'primary':
                 setColor('gold')
                 break;
             case 'secondary':
                 setColor('white')
         }
-    }, [props.style])
+    }, [style])
 
     return (
         <>
-            <button className={`${props.className} ${styles.styledButton}`} type={props.type} style={{ width: props.width, height: props.height, backgroundColor: color }} onClick={handleClick}>
-                <p style={{ color: props.style == 'primary' ? '#161616' : '#2e2e2e' }}>{props.text}</p>
+            <button className={`${className} ${styles.styledButton}`} type={type} style={{ width: width, height: height, backgroundColor: color }} onClick={handleClick}>
+                <p style={{ color: style == 'primary' ? '#161616' : '#2e2e2e' }}>{text}</p>
             </button>
         </>
     )
