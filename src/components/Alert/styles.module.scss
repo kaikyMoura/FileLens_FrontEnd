@@ -1,25 +1,24 @@
-.modalBlur {
+.alert_container {
     position: fixed;
-    box-shadow: inset;
-    backdrop-filter: blur(5px);
     height: 10em;
-    position: absolute;
     width: 28em;
-
-    border: 2px solid;
     border-radius: 6px;
-    top: 25%;
-    left: 35%;
-    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 150;
+    padding: 1em;
 }
 
-.modalBlur div {
+.alert_modal {
     padding: 20px;
     height: 100%;
     width: 100%;
+    box-shadow: 0px 1px 2px 0px #808080;
 }
 
 .modalBlur h2 {

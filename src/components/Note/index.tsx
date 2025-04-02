@@ -33,8 +33,9 @@ const Note = (props: {
 
     const handleBlur = () => {
         if (!props.editable) return;
-
+        console.log("aqui")
         if (title !== props.title || content !== props.content) {
+            console.log(title, content)
             props.onChange!({ title: title, content: content });
         }
     };
@@ -103,14 +104,17 @@ const Note = (props: {
             style={{
                 ...props.style
             }}>
-            <div className="flex justify-between items-center p-1">
+            <div className="flex justify-between ">
                 <div className="flex gap-2">
-                    <IoMdMenu className="cursor-pointer" fontSize={26} color="#808080" onDrag={props.handleDrop} />
+                    {props.editable && props.title && (
+                        <IoMdMenu className="cursor-pointer" fontSize={26} color="#808080" onDrag={props.handleDrop} />
+                    )}
                     <input className="font-semibold text-lg h-6 w-full pointer-events-auto border-none outline-none"
-                        onClick={handleOpenModal} readOnly placeholder={props.title ? props.title : "Title"} value={props.title} />
+                        onClick={handleOpenModal} readOnly placeholder={title ? title : "add a note..."} value={props.title} />
                 </div>
                 {props.options ? (
                     <div>
+
                         <IoMdMore className="cursor-pointer" fontSize={26} color="#808080" onClick={() => setOpenSelect(!openSelect)} />
                         {openSelect && (
                             <div
@@ -160,15 +164,15 @@ const Note = (props: {
             {props.editable && props.content && (
                 <>
                     {image && <Image src={image} alt="note" height={150} width={270} />}
-                    <TextareaAutosize className={`pointer-events-auto p-1 mt-2 resize-none ${styles.textareaNote}`} onClick={handleOpenModal}
+                    <TextareaAutosize className={`pointer-events-auto p-1 mt-2 resize-none md:max-w-[500px] ${styles.textareaNote}`} onClick={handleOpenModal}
                         defaultValue={props.content}
-                        placeholder={props.content ? undefined : "Create a note..."} />
+                        placeholder={props.content ? undefined : "add a note..."} />
                 </>
             )
             }
             {openModal &&
                 <Modal
-                    className="min-w-lg max-w-[600px] max-h-screen"
+                    className="min-w-lg max-w-[400px] max-h-screen"
                     isModalOpen={openModal}
                     closeModal={handleOpenModal}
                 >
@@ -189,9 +193,9 @@ const Note = (props: {
                         ) : null}
                     </div>
                     <div className="w-full h-px bg-[#808080]" />
-                    <TextareaAutosize className={`pointer-events-auto p-1 mt-2 resize-none outilne-none ${styles.textareaNote}`}
+                    <TextareaAutosize className={`pointer-events-auto max-w-[500px] p-1 mt-2 resize-none outilne-none ${styles.textareaNote}`}
                         defaultValue={props.content}
-                        placeholder={props.content ? undefined : "Create a note..."}
+                        placeholder={props.content ? undefined : "add a note..."}
                         onInput={(e) => {
                             const target = e.currentTarget;
                             target.style.height = "auto";

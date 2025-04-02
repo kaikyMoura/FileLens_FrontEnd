@@ -14,7 +14,6 @@ const CookiesPopup = (props: { close: () => void }) => {
                     Manage your preferences
                 </button>
                 <Button className={`font-normal text-md ${styles.accept__butn}`} style={"primary"} text={"accept"} type="button" action={props.close} />
-                <button className={`font-normal text-md ${styles.accept__butn}`} type="button" onClick={props.close}>Decline</button>
             </div>
         </div>
     );

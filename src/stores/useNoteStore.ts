@@ -1,6 +1,6 @@
 import app from '@/firebase/firebaseConfig';
 import { ApiResponse } from '@/types/ApiResponse';
-import { deleteDoc, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, Firestore, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { addDoc, collection } from 'firebase/firestore';
 import { create } from 'zustand';
 import { v4 as uuidv4 } from 'uuid'
@@ -17,7 +17,7 @@ interface NoteStore {
   notes: INote[];
   addNote: (title: string, content: string, email: string) => Promise<ApiResponse<string>>;
   fetchNotes: () => Promise<ApiResponse<INote[]>>;
-  updateNote: (id: string, updatedContent: string) => Promise<ApiResponse<string>>;
+  updateNote: (id: string, title: string, updatedContent: string) => Promise<ApiResponse<string>>;
   deleteNote: (id: string) => Promise<ApiResponse<string>>;
 }
 
@@ -54,18 +54,19 @@ export const useNoteStore = create<NoteStore>((set) => ({
   },
 
   addNote: async (title, content, email) => {
-    const id = uuidv4()
     try {
       const docRef = await addDoc(collection(db, "notes"), {
-        id,
         email,
         title,
         content,
         createdAt: new Date(),
+        updatedAt: null,
       });
       set((state) => ({
         notes: [...state.notes, { id: docRef.id, title, content, email }],
       }));
+
+      console.log("Document written with ID: ", docRef.id);
 
       await useNoteStore.getState().fetchNotes(); // Fetch notes after adding note
 
@@ -88,10 +89,11 @@ export const useNoteStore = create<NoteStore>((set) => ({
     }
   },
 
-  updateNote: async (id: string, updatedContent: string) => {
+  updateNote: async (id: string, updatedTitle: string, updatedContent: string) => {
     try {
+      
       const noteRef = doc(db, "notes", id);
-      await updateDoc(noteRef, { content: updatedContent });
+      await updateDoc(noteRef, { title: updatedTitle, content: updatedContent, updatedAt: new Date() });
       set((state) => ({
         notes: state.notes.map(note =>
           note.id === id ? { ...note, content: updatedContent } : note
@@ -116,14 +118,15 @@ export const useNoteStore = create<NoteStore>((set) => ({
     }
   },
 
-  // TODO fix this implementation 
   deleteNote: async (id: string) => {
     try {
-      await deleteDoc(doc(db, "notes", id));
+      const noteRef = doc(collection(db, "notes"), id);
+
+      await deleteDoc(noteRef);
       set((state) => ({
         notes: state.notes.filter(note => note.id !== id),
       }));
-      
+
       return {
         success: true,
         message: "Note deleted sucessfully"
