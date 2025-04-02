@@ -6,6 +6,7 @@ import FileSelector from "@/components/FileSelector"
 import { useLoadingContext } from "@/contexts/LoadingContextProvider"
 import { useThemeContext } from "@/contexts/ThemeContextProvider"
 import { extractData, uploadFile } from "@/services/fileService"
+import { useNoteStore } from "@/stores/useNoteStore"
 import Cookies from "js-cookie"
 import dynamic from "next/dynamic"
 import Image from "next/image"
@@ -13,7 +14,6 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { FaX } from "react-icons/fa6"
 import styles from "./styles.module.scss"
-import { useNoteStore } from "@/stores/useNoteStore"
 
 const FileViewer = dynamic(() => import('@/components/FileViewer'), {
     ssr: false
@@ -160,7 +160,7 @@ const Home = () => {
 
             {file && !fileTypes.includes(file.type as string) && (
                 <div className="">
-                    {typeof file === 'string' ? null : <FileViewer className="h-[350px]" file={file} />}
+                    {typeof file === 'string' ? null : <FileViewer className="h-[350px] w-[400px]" file={file} onClose={() => setFile(null)} />}
                 </div>
             )}
 
@@ -170,6 +170,7 @@ const Home = () => {
                         <div className="flex flex-col items-center gap-6 font-semibold text-lg">
                             <h3 className="font-bold text-xl mb-4">What do you want to do with this file?</h3>
                             <Button
+                                className="text-lg font-normal"
                                 type="button"
                                 style="primary"
                                 text="Save file"
@@ -182,12 +183,14 @@ const Home = () => {
                                 type="button"
                                 style="primary"
                                 text="Extract data to a note"
+                                className="text-lg font-normal"
                                 action={extractDataFromFile}
                                 width={200}
                                 height={50}
                             />
 
                             <Button
+                                className="text-lg font-normal"
                                 type="button"
                                 style="primary"
                                 text="Convert file"

@@ -1,10 +1,14 @@
-.container {
-    max-height: 600px;
+.file_viewer_container {
+    max-height: 500px;
+    max-width: 500px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.modalInput {
-    padding: 6px;
+.file_viewer__button {
+    max-width: 500px;
+    width: 100%;
+    padding: 2px;
     gap: 0px;
     border-radius: 8px;
     background-color: var(--component-color);
